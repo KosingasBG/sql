@@ -1,0 +1,14 @@
+SELECT
+    [stgSalesForce].[Apttus__APTS_Agreement__c].*,
+    [stgSalesForce].[Account].[Id],
+    [stgSalesForce].[Account].[Name],
+    [stgSalesForce].[Account].[Type],
+    [stgSalesForce].[Account].[Ultimate_Parent__c]
+FROM
+    [stgSalesForce].[Apttus__APTS_Agreement__c]
+JOIN
+    [stgSalesForce].[Account]
+    ON [stgSalesForce].[Account].[Id] = [stgSalesForce].[Apttus__APTS_Agreement__c].[Site_Name__c]
+WHERE
+    [stgSalesForce].[Apttus__APTS_Agreement__c].[IsLatest] = 1
+    AND [stgSalesForce].[Account].[IsLatest] = 1;
