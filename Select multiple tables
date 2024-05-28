@@ -1,0 +1,37 @@
+SELECT
+		 ST.[name__v] AS [Study]
+		,G.regionname AS [Region]
+		,C.[name__v] AS [Country]
+		,S.[name__v] AS [Site]
+		,S.[pi_last_name__c] AS [PI]
+		,ST.[sponsor_name__c] AS [Sponsor (Parent)]
+		,ST.[sponsor_protocol_number__c] AS [Protocol Number]
+		,ST.[therapeutic_area__c] AS [Therapeutic Area]
+		,MT.[name__v] AS [Milestone Template Name]
+		,MT.[level__v] AS [Milestone level]
+		,M.[name__v] AS [Milestone Name]
+		,M.[planned_finish_date__v] AS [Planned finish date]
+		,M.[actual_finish_date__v] AS [Actual finish date]
+		,M.[first_draft_cta_to_site__c] AS [1st draft sent to site]
+		,M.[budget_approved_date__c] AS [Budget Approved date]
+		,M.[negotiation_complete_date__c] AS [Negotiation date]
+		,EDL.[name__v] AS [Expected document]
+		,EDL.[completeness__v] AS [Completeness]
+		,EDL.[expected_steady_state_count__v] AS [Expected Steady State Count]
+		,EDL.[expected_vs_all_documents__v] AS [Expected Vs All Documents]
+		,EDL.[requiredness__v] AS [Requiredness]
+		,EDL.[steady_state_doc_count__v] AS [# of Final documents]
+		,EDL.[all_doc_count__v] AS [All Documents count]
+FROM	[stgVeeva].[Study_V] ST
+		INNER JOIN
+		[stgVeeva].[Milestone__V] M ON ST.[id] = M.[study__v]
+		INNER JOIN
+		[stgVeeva].[Edl_Item_V] EDL ON M.[id] = EDL.[owning_milestone__v]
+		INNER JOIN
+		[stgVeeva].[Country_V] C ON M.[country__c] = C.[id]
+		INNER JOIN
+		dvClin.refGeo_V G ON C.[abbreviation__c] = G.[CountryAlpha3code]
+		INNER JOIN
+		[stgVeeva].[Site__V] S ON ST.[id] = S.[study__v]
+		INNER JOIN
+		[stgVeeva].[Milestone_Template__V] MT ON M.[milestone_template__v] = MT.[id]
