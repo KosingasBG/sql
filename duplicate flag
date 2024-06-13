@@ -1,0 +1,1 @@
+DuplicateFlag = IF(COUNTROWS(FILTER(Dim_HelperColumn, [Helper Column] = EARLIER([Helper Column]))) > 1, 1, 0)
