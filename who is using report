@@ -1,0 +1,5 @@
+User = 
+CALCULATE(
+    SELECTEDVALUE('Dim_Employee_Tabular'[Preferred Name - First Name]),
+    'Dim_Employee_Tabular'[Email - Work]=USERPRINCIPALNAME(),ALL(Dim_Employee_Tabular),ALL(CalendarTable),ALL('CSL/ CSA FE')
+)
