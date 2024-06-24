@@ -1,0 +1,32 @@
+SELECT 
+    [Id],
+    [OwnerId],
+    [Apttus__Requestor__c],
+    [VerDate__c],
+    [ExpSignDate__c],
+    [FullyExec__c],
+    [IniContSentDate__c],
+    [NoISFE__c],
+    [OwnerName__c],
+    [RecTypeName__c],
+    [Veeva_Site_Id__c],
+    [CSA_Negotiated_by_Parexel_Y_N__c],
+    [Agreement_Id_18digit__c],
+    [Days_On_Hold__c],
+    [Segment_of_the_Parent_Account__c],
+    [SubtypeText__c],
+    [Apttus__Status__c]
+FROM 
+    [stgSalesForce].[Apttus__APTS_Agreement__c]
+WHERE 
+    [IsLatest] = 1 
+    AND YEAR([FullyExec__c]) > 2019 
+    AND [Apttus__Status__c] <> 'Cancelled' 
+    AND [Apttus__Status__c] <> 'Expired' 
+    AND [Apttus__Status__c] <> 'Terminated' 
+    AND [Apttus__Status__c] <> 'Cancelled Request' 
+    AND [Apttus__Subtype__c] <> 'Termination Agreement' 
+    AND [Apttus__Subtype__c] <> 'Letter of Agreement' 
+    AND [Apttus__Subtype__c] <> 'Letter of Intent' 
+    AND [Apttus__Subtype__c] <> 'Letter of Intent (LOI)' 
+    AND [CSA_Negotiated_by_Parexel_Y_N__c] <> 'No';
