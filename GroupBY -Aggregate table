@@ -1,0 +1,13 @@
+SELECT
+    [FullyExec__c] AS FullyExec_Date,
+    [Apttus__Subtype__c] AS Subtype,
+    COUNT([Agreement_Id_18digit__c]) AS Agreement_Count
+FROM [stgSalesForce].[Apttus__APTS_Agreement__c]
+WHERE
+    [IsLatest] = 1
+   AND YEAR([FullyExec__c]) > 2022
+    AND [CSA_Negotiated_by_Parexel_Y_N__c] <> 'No'
+ 
+GROUP BY
+    [FullyExec__c],
+    [Apttus__Subtype__c];
